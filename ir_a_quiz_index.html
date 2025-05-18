@@ -1,0 +1,92 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ir a / Ir al / Ir a la - Quiz</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 700px;
+      margin: auto;
+      padding: 20px;
+    }
+    input[type="text"] {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+      box-sizing: border-box;
+    }
+    button {
+      margin-top: 15px;
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #007BFF;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    @media (max-width: 480px) {
+      body {
+        padding: 10px;
+      }
+    }
+  </style>
+  <script>
+    const questions = [
+      { q: "Mañana voy ___ supermercado.", a: "al" },
+      { q: "¿Quieres ir ___ playa este fin de semana?", a: "a la" },
+      { q: "Voy ___ estudiar a la biblioteca.", a: "a" },
+      { q: "¿Vamos ___ cine esta noche?", a: "al" },
+      { q: "Después del trabajo, voy ___ casa.", a: "a" },
+      { q: "Mis hijos van ___ escuela a las ocho.", a: "a la" },
+      { q: "Nos gusta ir ___ restaurante los viernes.", a: "al" },
+      { q: "Voy ___ mercado central los sábados.", a: "al" },
+    ];
+
+    function checkAnswers() {
+      let correct = 0;
+      questions.forEach((item, index) => {
+        const userAnswer = document.getElementById(`q${index}`).value.trim().toLowerCase();
+        const feedback = document.getElementById(`f${index}`);
+        if (userAnswer === item.a) {
+          feedback.textContent = "✅ Correcto";
+          feedback.style.color = "green";
+          correct++;
+        } else {
+          feedback.textContent = `❌ Incorrecto (Respuesta: ${item.a})`;
+          feedback.style.color = "red";
+        }
+      });
+      document.getElementById("score").textContent = `Puntuación: ${correct} / ${questions.length}`;
+    }
+
+    window.onload = function () {
+      const quizList = document.getElementById('quiz-list');
+      questions.forEach((item, i) => {
+        const li = document.createElement('li');
+        li.style.marginBottom = '15px';
+        li.innerHTML = `
+          ${item.q}<br>
+          <input type="text" id="q${i}" placeholder="al / a la / a">
+          <span id="f${i}" style="display:block;margin-top:5px;"></span>
+        `;
+        quizList.appendChild(li);
+      });
+    }
+  </script>
+</head>
+<body>
+  <h1>📝 Ir a / Ir al / Ir a la - Quiz</h1>
+  <form onsubmit="event.preventDefault(); checkAnswers();">
+    <ol id="quiz-list"></ol>
+    <button type="submit">Verificar respuestas</button>
+  </form>
+  <h3 id="score" style="margin-top: 20px;"></h3>
+</body>
+</html>
